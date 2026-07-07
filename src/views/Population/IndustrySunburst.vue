@@ -43,6 +43,45 @@ const subColors = [
   ],
 ]
 
+// 为数据添加颜色
+const addColorsToData = (data: IndustryData[]): any[] => {
+  return data.map((item, mainIndex) => {
+    const mainColor = mainColors[mainIndex % 3]
+    const subColorSet = subColors[mainIndex % 3]
+
+    const coloredItem: any = {
+      ...item,
+      itemStyle: {
+        color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [
+          { offset: 0, color: mainColor.start },
+          { offset: 1, color: mainColor.end },
+        ]),
+        shadowBlur: 15,
+        shadowColor: mainColor.glow + '60',
+      },
+    }
+
+    if (item.children && item.children.length > 0) {
+      coloredItem.children = item.children.map((child, subIndex) => {
+        const subColor = subColorSet[subIndex % subColorSet.length]
+        return {
+          ...child,
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [
+              { offset: 0, color: subColor.start },
+              { offset: 1, color: subColor.end },
+            ]),
+            shadowBlur: 10,
+            shadowColor: subColor.start + '40',
+          },
+        }
+      })
+    }
+
+    return coloredItem
+  })
+}
+
 const getOption = (data: IndustryData[]) => ({
   tooltip: {
     trigger: 'item',
@@ -66,7 +105,7 @@ const getOption = (data: IndustryData[]) => ({
   series: [
     {
       type: 'sunburst',
-      data: data,
+      data: addColorsToData(data),
       radius: [0, '95%'],
       center: ['50%', '50%'],
       sort: null,
@@ -117,30 +156,6 @@ const getOption = (data: IndustryData[]) => ({
         borderRadius: 5,
         borderColor: 'rgba(10, 14, 39, 0.8)',
         borderWidth: 2,
-        color: (params: any) => {
-          const depth = params.treePathInfo?.length || 1
-          const index = params.dataIndex || 0
-
-          // 第一层（三大产业）
-          if (depth === 2) {
-            return new echarts.graphic.LinearGradient(0, 0, 1, 1, [
-              { offset: 0, color: mainColors[index % 3].start },
-              { offset: 1, color: mainColors[index % 3].end },
-            ])
-          }
-
-          // 第二层（子行业）
-          const parentIndex = params.treePathInfo?.[1]?.dataIndex || 0
-          const subColorSet = subColors[parentIndex % 3]
-          const subColor = subColorSet[index % subColorSet.length]
-
-          return new echarts.graphic.LinearGradient(0, 0, 1, 1, [
-            { offset: 0, color: subColor.start },
-            { offset: 1, color: subColor.end },
-          ])
-        },
-        shadowBlur: 10,
-        shadowColor: 'rgba(0, 212, 255, 0.3)',
       },
     },
   ],
