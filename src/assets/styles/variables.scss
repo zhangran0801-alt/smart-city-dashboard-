@@ -1,0 +1,64 @@
+// 主题色彩
+$color-primary: #00d4ff;
+$color-success: #00ff88;
+$color-warning: #ffaa00;
+$color-danger: #ff4466;
+$color-purple: #aa66ff;
+$color-cyan: #66ffcc;
+
+// 背景色
+$color-bg-dark: #0a0e27;
+$color-bg-panel: rgba(6, 25, 73, 0.6);
+$color-bg-header: rgba(0, 212, 255, 0.1);
+
+// 文字色
+$color-text-primary: #ffffff;
+$color-text-secondary: #a0cfff;
+$color-text-muted: #5a7b9a;
+
+// 边框色
+$color-border: rgba(0, 212, 255, 0.3);
+$color-border-light: rgba(0, 212, 255, 0.15);
+
+// 阴影
+$shadow-glow: 0 0 20px rgba(0, 212, 255, 0.15);
+$shadow-panel: 0 4px 20px rgba(0, 0, 0, 0.3);
+
+// 字号
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-base: 16px;
+$font-size-lg: 20px;
+$font-size-xl: 24px;
+$font-size-xxl: 32px;
+$font-size-title: 48px;
+
+// 间距
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+// 圆角
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+
+// 设计稿尺寸
+$screen-width: 1920px;
+$screen-height: 1080px;
+
+// CSS 变量（供组件使用）
+:root {
+  --color-primary: #{$color-primary};
+  --color-success: #{$color-success};
+  --color-warning: #{$color-warning};
+  --color-danger: #{$color-danger};
+  --color-bg-dark: #{$color-bg-dark};
+  --color-bg-panel: #{$color-bg-panel};
+  --color-text-primary: #{$color-text-primary};
+  --color-text-secondary: #{$color-text-secondary};
+  --color-border: #{$color-border};
+  --shadow-glow: #{$shadow-glow};
+}
